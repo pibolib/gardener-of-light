@@ -84,7 +84,7 @@ z_index = 8
 y_sort_enabled = true
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_w875g")
-frame_progress = 0.445981
+frame_progress = 0.462552
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 z_index = -1

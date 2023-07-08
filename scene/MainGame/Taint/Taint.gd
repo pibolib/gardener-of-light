@@ -17,6 +17,10 @@ func _ready():
 	game_handler.connect("mode_switch", _on_mode_switch)
 
 func _process(delta):
+	if clamp(position.x, 0, 320) != position.x:
+		queue_free()
+	elif clamp(position.y, 0, 240) != position.y:
+		queue_free()
 	if do_3d_anim:
 		if z < 0:
 			z += zsp * delta
@@ -26,12 +30,19 @@ func _process(delta):
 			do_3d_anim = false
 			g = 0
 			z = 0
+			$CollisionShape2D.disabled = false
+			game_handler.taint_count += 1
 	else:
 		if $Sprite.scale.x < 1 and grow:
 			$Sprite.scale += Vector2(delta/16, delta/16)
-			$CollisionShape2D.scale = $Sprite.scale
+		else:
+			grow = false
 	z_index = -z - 8
+	$CollisionShape2D.scale = $Sprite.scale
 	$Sprite.position.y = z
+	if $Sprite.scale.x <= 0:
+		game_handler.taint_count -= 1
+		queue_free()
 
 func _on_mode_switch(mode: GameHandler.Mode):
 	grow = mode == GameHandler.Mode.NIGHT

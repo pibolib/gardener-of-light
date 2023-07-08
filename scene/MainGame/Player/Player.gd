@@ -6,10 +6,12 @@ enum Ability {
 	BASIC
 }
 
+const TAINT = preload("res://scene/MainGame/Taint/Taint.tscn")
 const INTERACTABLE := preload("res://scene/MainGame/Interactable/interactable.tscn")
 
 @export var max_speed: float = 65
 @export var speed: float = 65
+@export var taint_time: float = 3
 var movement_angle: float = 0
 var attack_angle: float = 0
 var ability := Ability.NONE
@@ -22,12 +24,18 @@ var slow: bool = false
 var pick_up: Interactable
 var holding: String = ""
 
+var taint_timer: Timer
+
 @export var game_handler: Node
 @onready var aim_marker_pivot = $AimMarkerPivot
 
 const PROJECTILE_BASIC := preload("res://scene/MainGame/Projectile/Projectile.tscn")
 
 func _ready():
+	taint_timer = Timer.new()
+	taint_timer.connect("timeout", make_taint)
+	add_child(taint_timer)
+	taint_timer.start(taint_time)
 	attack_timer = Timer.new()
 	attack_timer.connect("timeout", attack_refresh)
 	add_child(attack_timer)
@@ -47,12 +55,14 @@ func _process(delta):
 		if holding != "":
 			var new_interactable = load(holding).instantiate()
 			new_interactable.global_position = Vector2(16*game_handler.get_node("TileMap").local_to_map($AimMarkerPivot/AimIndicator.global_position)) + Vector2(8,8)
-			new_interactable.rotation = attack_angle
+			if !new_interactable is Flower:
+				new_interactable.rotation = attack_angle
 			add_sibling(new_interactable)
 			holding = ""
 		if pick_up != null:
 			holding = pick_up.scene_file_path
-			pick_up.queue_free()
+			if !pick_up is Flower:
+				pick_up.queue_free()
 			move_enable = true
 			pick_up = null
 
@@ -107,7 +117,10 @@ func _physics_process(delta):
 #		attack_timer.start(0.5)
 
 func _on_mode_switch(mode: GameHandler.Mode) -> void:
-	pass
+	if mode == GameHandler.Mode.DAY:
+		$PointLight2D.enabled = false
+	else:
+		$PointLight2D.enabled = true
 
 func _on_item_pickup_area_entered(area) -> void:
 	if area is Interactable:
@@ -122,3 +135,8 @@ func _on_item_pickup_area_exited(area):
 func attack_refresh() -> void:
 	attack_timer.stop()
 	attack_ready = true
+
+func make_taint() -> void:
+	var taint := TAINT.instantiate()
+	taint.position = position
+	add_sibling(taint)

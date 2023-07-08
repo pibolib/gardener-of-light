@@ -16,6 +16,7 @@ var mode_timer: Timer
 @onready var tile_map = $TileMap
 
 var player_position = Vector2.ZERO
+var taint_count: int = 0
 
 signal mode_switch(mode)
 
@@ -35,11 +36,13 @@ func _ready():
 	mode_timer.connect("timeout", _on_mode_timer_timeout)
 
 func _process(_delta):
-	label.text = "Mode: %d, Time Remaining: %d" % [mode, mode_timer.time_left]
+	label.text = "Mode: %d, Time Remaining: %d\nTaint Count: %d/100" % [mode, mode_timer.time_left, taint_count]
 
 func _on_mode_timer_timeout() -> void:
 	if mode == Mode.DAY:
 		mode = Mode.NIGHT
+		$CanvasModulate.visible = true
 	else:
 		mode = Mode.DAY
+		$CanvasModulate.visible = false
 	mode_switch.emit(mode)

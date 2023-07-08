@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwypq1al5326i"]
+
+[ext_resource type="Script" path="res://scene/MainGame/Interactable/Flower.gd" id="1_il1eo"]
+[ext_resource type="Texture2D" uid="uid://2sj4brcdw33w" path="res://asset/powerup/plant.png" id="2_n2pqj"]
+[ext_resource type="Texture2D" uid="uid://f1qvn5xbhd5j" path="res://asset/lighting/lightcircle.png" id="3_ixyyp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0dpoh"]
+size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_heegk"]
+radius = 64.0
+
+[node name="Flower" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_il1eo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_n2pqj")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0dpoh")
+
+[node name="Clear" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Clear"]
+shape = SubResource("CircleShape2D_heegk")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(2, 2)
+energy = 0.57
+texture = ExtResource("3_ixyyp")
