@@ -9,7 +9,7 @@ enum Mode {
 const TILE := preload("res://scene/MainGame/World/Tile.tscn")
 
 @export var cycle_time: float = 10
-var mode := Mode.DAY
+var mode := Mode.NIGHT
 var mode_timer: Timer
 @onready var ui = $UI
 @onready var label = $UI/Label
@@ -21,6 +21,7 @@ signal mode_switch(mode)
 
 func _ready():
 	randomize()
+	mode_switch.emit(Mode.NIGHT)
 	for tile in tile_map.get_used_cells(1):
 		var new_tile = TILE.instantiate()
 		new_tile.position = tile_map.map_to_local(tile)

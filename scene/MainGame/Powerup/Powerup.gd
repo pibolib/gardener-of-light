@@ -10,9 +10,9 @@ func _ready():
 
 func _on_mode_switch(mode: GameHandler.Mode) -> void:
 	if mode == GameHandler.Mode.DAY:
-		set_enable(false)
-	else:
 		set_enable(true)
+	else:
+		set_enable(false)
 
 func set_enable(state: bool) -> void:
 	if state:

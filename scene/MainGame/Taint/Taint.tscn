@@ -1,14 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://ce8hwv7rel51i"]
+[gd_scene load_steps=4 format=3 uid="uid://ce8hwv7rel51i"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Taint/Taint.gd" id="1_1mu0q"]
 [ext_resource type="Texture2D" uid="uid://d0n65apg73alj" path="res://asset/taint/taintblob.png" id="1_q0cqq"]
 
-[node name="TaintBlob" type="Node2D"]
-z_index = -8
+[sub_resource type="CircleShape2D" id="CircleShape2D_v5big"]
+radius = 16.0
+
+[node name="TaintBlob" type="Area2D"]
 y_sort_enabled = true
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_1mu0q")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 y_sort_enabled = true
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("1_q0cqq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_v5big")

@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://drw6pkyel0u2l"]
+[gd_scene load_steps=20 format=3 uid="uid://drw6pkyel0u2l"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Player/Player.gd" id="1_mpypc"]
 [ext_resource type="Texture2D" uid="uid://ctxneuttrdl5" path="res://asset/player/boy-Sheet.png" id="2_wqast"]
 [ext_resource type="Texture2D" uid="uid://cf7245nweq3x1" path="res://asset/player/boy-walk-Sheet.png" id="3_l8waq"]
 [ext_resource type="Texture2D" uid="uid://dip1r3gx7us1v" path="res://asset/player/aimdirection.png" id="3_nuxkv"]
 [ext_resource type="Texture2D" uid="uid://f1qvn5xbhd5j" path="res://asset/lighting/lightcircle.png" id="4_gen42"]
+[ext_resource type="Texture2D" uid="uid://diom3qyvry5fv" path="res://asset/ui/spacebar.png" id="5_jfnca"]
+[ext_resource type="Texture2D" uid="uid://2twcrs85gps5" path="res://asset/shadow/shadow.png" id="6_csn0i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ogfy"]
 atlas = ExtResource("2_wqast")
@@ -79,7 +81,10 @@ animations = [{
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y6e12"]
-radius = 7.0
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ls3rk"]
+radius = 2.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = -1
@@ -105,18 +110,42 @@ position = Vector2(0, -3)
 
 [node name="AimIndicator" type="Sprite2D" parent="AimMarkerPivot"]
 z_index = 16
-position = Vector2(12, 0)
+position = Vector2(16, 0)
 texture = ExtResource("3_nuxkv")
 
-[node name="ItemPickup" type="Area2D" parent="."]
+[node name="ItemPickup" type="Area2D" parent="AimMarkerPivot"]
+position = Vector2(16, 0)
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickup"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AimMarkerPivot/ItemPickup"]
 shape = SubResource("CircleShape2D_y6e12")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 shadow_enabled = true
 texture = ExtResource("4_gen42")
 
-[connection signal="area_entered" from="ItemPickup" to="." method="_on_item_pickup_area_entered"]
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.364706)
+z_index = -2
+position = Vector2(0, 2)
+scale = Vector2(1, 0.5)
+texture = ExtResource("6_csn0i")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Main" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main"]
+shape = SubResource("CircleShape2D_ls3rk")
+
+[node name="Spacebar" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(16, 7)
+texture = ExtResource("5_jfnca")
+
+[connection signal="area_entered" from="AimMarkerPivot/ItemPickup" to="." method="_on_item_pickup_area_entered"]
+[connection signal="area_exited" from="AimMarkerPivot/ItemPickup" to="." method="_on_item_pickup_area_exited"]

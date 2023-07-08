@@ -1,10 +1,11 @@
-extends Node2D
+extends Area2D
+class_name Interactable
 
 @export var speed: float = 300
 var rotation_timer: Timer
 
 func _ready():
-	rotation = randi_range(0, 3) * PI/2
+	connect("body_entered", _on_area_2d_body_entered)
 	rotation_timer = Timer.new()
 	add_child(rotation_timer)
 	rotation_timer.start(2)
@@ -20,4 +21,5 @@ func _on_area_2d_body_entered(body):
 		body.move_enable = true
 
 func _rotate():
-	rotation += PI/2
+	#rotation += PI/2
+	pass

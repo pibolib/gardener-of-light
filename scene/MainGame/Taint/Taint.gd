@@ -1,4 +1,5 @@
-extends Node2D
+extends Area2D
+class_name TaintBlob
 
 var z: float = -0.01
 var zsp: float = -70
@@ -28,6 +29,8 @@ func _process(delta):
 	else:
 		if $Sprite.scale.x < 1 and grow:
 			$Sprite.scale += Vector2(delta/16, delta/16)
+			$CollisionShape2D.scale = $Sprite.scale
+	z_index = -z - 8
 	$Sprite.position.y = z
 
 func _on_mode_switch(mode: GameHandler.Mode):

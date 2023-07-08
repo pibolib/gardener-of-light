@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dqh7wtdaccxpd"]
+[gd_scene load_steps=18 format=3 uid="uid://dqh7wtdaccxpd"]
 
 [ext_resource type="PackedScene" uid="uid://drw6pkyel0u2l" path="res://scene/MainGame/Player/Player.tscn" id="1_0227l"]
 [ext_resource type="Script" path="res://scene/MainGame/GameHandler.gd" id="1_rux4r"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bvcx0ni6lj0an" path="res://scene/MainGame/Powerup/Powerup.tscn" id="5_c1pys"]
 [ext_resource type="PackedScene" uid="uid://bvtqyrvqllt6d" path="res://scene/MainGame/Enemy/Enemy.tscn" id="6_p88p4"]
 [ext_resource type="PackedScene" uid="uid://3ymrobvsurmi" path="res://scene/MainGame/Interactable/interactable.tscn" id="7_h14s5"]
+[ext_resource type="PackedScene" uid="uid://brmofso3mollm" path="res://scene/MainGame/Goal/Goal.tscn" id="8_s8uso"]
+[ext_resource type="PackedScene" uid="uid://cigy8cds0e7ug" path="res://scene/MainGame/Interactable/Landmine.tscn" id="9_djha6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_16tad"]
 
@@ -57,7 +59,6 @@ script = ExtResource("1_rux4r")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
-position = Vector2(0, 2)
 tile_set = SubResource("TileSet_acypx")
 format = 2
 layer_0/name = "BG"
@@ -94,12 +95,12 @@ position = Vector2(80, 80)
 position = Vector2(96, 144)
 
 [node name="Enemy" parent="." instance=ExtResource("6_p88p4")]
-position = Vector2(88, 61)
+position = Vector2(88, 96)
 target = Vector2(24, 216)
 follow_player = false
 
 [node name="Enemy3" parent="." instance=ExtResource("6_p88p4")]
-position = Vector2(195, 119)
+position = Vector2(195, 154)
 target = Vector2(24, 216)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -114,3 +115,9 @@ position = Vector2(121, 153)
 [node name="Interactable2" parent="." instance=ExtResource("7_h14s5")]
 position = Vector2(120, 56)
 rotation = 1.5708
+
+[node name="Goal" parent="." instance=ExtResource("8_s8uso")]
+position = Vector2(184, 88)
+
+[node name="Landmine" parent="." instance=ExtResource("9_djha6")]
+position = Vector2(24, 176)
