@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce8hwv7rel51i"]
+
+[ext_resource type="Script" path="res://scene/MainGame/Taint/Taint.gd" id="1_1mu0q"]
+[ext_resource type="Texture2D" uid="uid://d0n65apg73alj" path="res://asset/taint/taintblob.png" id="1_q0cqq"]
+
+[node name="TaintBlob" type="Node2D"]
+z_index = -8
+y_sort_enabled = true
+script = ExtResource("1_1mu0q")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_q0cqq")

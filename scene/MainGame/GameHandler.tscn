@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dqh7wtdaccxpd"]
+[gd_scene load_steps=16 format=3 uid="uid://dqh7wtdaccxpd"]
 
 [ext_resource type="PackedScene" uid="uid://drw6pkyel0u2l" path="res://scene/MainGame/Player/Player.tscn" id="1_0227l"]
 [ext_resource type="Script" path="res://scene/MainGame/GameHandler.gd" id="1_rux4r"]
@@ -6,12 +6,13 @@
 [ext_resource type="FontFile" uid="uid://yoxl3j5wnxsn" path="res://asset/fonts/04B_03_.TTF" id="4_ofvrq"]
 [ext_resource type="PackedScene" uid="uid://bvcx0ni6lj0an" path="res://scene/MainGame/Powerup/Powerup.tscn" id="5_c1pys"]
 [ext_resource type="PackedScene" uid="uid://bvtqyrvqllt6d" path="res://scene/MainGame/Enemy/Enemy.tscn" id="6_p88p4"]
+[ext_resource type="PackedScene" uid="uid://3ymrobvsurmi" path="res://scene/MainGame/Interactable/interactable.tscn" id="7_h14s5"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_16tad"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q8t0t"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_dphq2"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1mgl6"]
 vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
@@ -31,7 +32,7 @@ texture = ExtResource("3_18a25")
 2:0/0 = 0
 2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:0/0/physics_layer_0/angular_velocity = 0.0
-2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_dphq2")
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_1mgl6")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ob6i"]
 texture = ExtResource("3_18a25")
@@ -44,16 +45,23 @@ navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_cxm6s")
 sources/1 = SubResource("TileSetAtlasSource_1ob6i")
 
+[sub_resource type="Environment" id="Environment_y4xgg"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1hxi5"]
+blend_mode = 2
+light_mode = 2
+
 [node name="GameHandler" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_rux4r")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
+position = Vector2(0, 2)
 tile_set = SubResource("TileSet_acypx")
 format = 2
 layer_0/name = "BG"
-layer_0/z_index = -2
+layer_0/z_index = -10
 layer_0/tile_data = PackedInt32Array(65537, 131072, 0, 131073, 131072, 0, 196609, 131072, 0, 65538, 131072, 0, 196610, 131072, 0, 65539, 131072, 0, 65540, 131072, 0, 196612, 131072, 0, 65541, 131072, 0, 131077, 131072, 0, 196613, 131072, 0, 65542, 131072, 0, 196614, 131072, 0, 65543, 131072, 0, 196615, 131072, 0, 65544, 131072, 0, 196616, 131072, 0, 65545, 131072, 0, 196617, 131072, 0, 65546, 131072, 0, 196618, 131072, 0, 65547, 131072, 0, 196619, 131072, 0, 65548, 131072, 0, 196620, 131072, 0, 65549, 131072, 0, 196621, 131072, 0, 65550, 131072, 0, 196622, 131072, 0, 65551, 131072, 0, 196623, 131072, 0, 65552, 131072, 0, 196624, 131072, 0, 65553, 131072, 0, 65554, 131072, 0, 131090, 131072, 0, 196626, 131072, 0, 262149, 131072, 0, 327685, 131072, 0, 393221, 131072, 0, 458757, 131072, 0, 524293, 131072, 0, 589829, 131072, 0, 458753, 131072, 0, 458754, 131072, 0, 458755, 131072, 0, 458756, 131072, 0, 524289, 131072, 0, 589825, 131072, 0, 589826, 131072, 0, 589827, 131072, 0, 589828, 131072, 0, 589830, 131072, 0, 589831, 131072, 0, 589832, 131072, 0, 589833, 131072, 0, 589834, 131072, 0, 589835, 131072, 0, 589836, 131072, 0, 589837, 131072, 0, 589838, 131072, 0, 589839, 131072, 0, 589840, 131072, 0, 589841, 131072, 0, 589842, 131072, 0, 262151, 131072, 0, 327687, 131072, 0, 393223, 131072, 0, 458759, 131072, 0, 524295, 131072, 0, 262153, 131072, 0, 327689, 131072, 0, 393225, 131072, 0, 458761, 131072, 0, 458762, 131072, 0, 327691, 131072, 0, 458763, 131072, 0, 327692, 131072, 0, 458764, 131072, 0, 327693, 131072, 0, 458765, 131072, 0, 327694, 131072, 0, 458766, 131072, 0, 524302, 131072, 0, 327695, 131072, 0, 327696, 131072, 0, 458768, 131072, 0, 524304, 131072, 0, 327697, 131072, 0, 262162, 131072, 0, 327698, 131072, 0, 458770, 131072, 0, 524306, 131072, 0, 327681, 131072, 0, 327682, 131072, 0, 327683, 131072, 0, 327684, 131072, 0, 655361, 131072, 0, 720897, 131072, 0, 720898, 131072, 0, 720899, 131072, 0, 720900, 131072, 0, 720901, 131072, 0, 720902, 131072, 0, 720903, 131072, 0, 720904, 131072, 0, 720905, 131072, 0, 720906, 131072, 0, 720907, 131072, 0, 720908, 131072, 0, 720909, 131072, 0, 720910, 131072, 0, 720911, 131072, 0, 720912, 131072, 0, 720913, 131072, 0, 720914, 131072, 0, 655378, 131072, 0, 786450, 131072, 0, 851986, 131072, 0, 851969, 131072, 0, 851970, 131072, 0, 851971, 131072, 0, 851972, 131072, 0, 851973, 131072, 0, 851974, 131072, 0, 851975, 131072, 0, 851976, 131072, 0, 851977, 131072, 0, 851978, 131072, 0, 851979, 131072, 0, 851980, 131072, 0, 851981, 131072, 0, 851982, 131072, 0, 851983, 131072, 0, 851984, 131072, 0, 851985, 131072, 0, 786433, 131072, 0, 655367, 131072, 0, 786439, 131072, 0, 196625, 131072, 0)
 layer_1/name = "FG"
 layer_1/enabled = true
@@ -88,3 +96,21 @@ position = Vector2(96, 144)
 [node name="Enemy" parent="." instance=ExtResource("6_p88p4")]
 position = Vector2(88, 61)
 target = Vector2(24, 216)
+follow_player = false
+
+[node name="Enemy3" parent="." instance=ExtResource("6_p88p4")]
+position = Vector2(195, 119)
+target = Vector2(24, 216)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y4xgg")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+material = SubResource("CanvasItemMaterial_1hxi5")
+
+[node name="Interactable" parent="." instance=ExtResource("7_h14s5")]
+position = Vector2(121, 153)
+
+[node name="Interactable2" parent="." instance=ExtResource("7_h14s5")]
+position = Vector2(120, 56)
+rotation = 1.5708

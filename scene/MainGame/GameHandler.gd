@@ -6,17 +6,28 @@ enum Mode {
 	NIGHT
 }
 
+const TILE := preload("res://scene/MainGame/World/Tile.tscn")
+
 @export var cycle_time: float = 10
 var mode := Mode.DAY
 var mode_timer: Timer
 @onready var ui = $UI
 @onready var label = $UI/Label
+@onready var tile_map = $TileMap
 
 var player_position = Vector2.ZERO
 
 signal mode_switch(mode)
 
 func _ready():
+	randomize()
+	for tile in tile_map.get_used_cells(1):
+		var new_tile = TILE.instantiate()
+		new_tile.position = tile_map.map_to_local(tile)
+		new_tile.sprite_atlas_position = tile_map.get_cell_atlas_coords(1, tile) * 16
+		tile_map.set_cell(1, tile, -1)
+		add_child(new_tile)
+	
 	mode_timer = Timer.new()
 	add_child(mode_timer)
 	mode_timer.start(cycle_time)

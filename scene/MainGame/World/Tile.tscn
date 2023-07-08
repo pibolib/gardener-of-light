@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bihp1d62855ea"]
+
+[ext_resource type="Script" path="res://scene/MainGame/World/Tile.gd" id="1_f7aqb"]
+[ext_resource type="Texture2D" uid="uid://fi8n2rep8gho" path="res://asset/tile/tileset.png" id="1_vm5mk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fbklq"]
+size = Vector2(16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_m34hx"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[node name="Tile" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_f7aqb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fbklq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-8, -8)
+texture = ExtResource("1_vm5mk")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_m34hx")
