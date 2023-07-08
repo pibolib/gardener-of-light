@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://brmofso3mollm"]
+
+[ext_resource type="Texture2D" uid="uid://btlxynagetksw" path="res://asset/world/funnyarrow.png" id="1_hsa8r"]
+
+[node name="Goal" type="Node2D"]
+
+[node name="Funnyarrow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+texture = ExtResource("1_hsa8r")
