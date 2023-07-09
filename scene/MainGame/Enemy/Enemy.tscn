@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvtqyrvqllt6d"]
+[gd_scene load_steps=17 format=3 uid="uid://bvtqyrvqllt6d"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Enemy/Enemy.gd" id="1_yxob3"]
 [ext_resource type="Texture2D" uid="uid://k6fs44gnaeph" path="res://asset/enemy/enemy_sm-idle-Sheet.png" id="2_b7e0t"]
 [ext_resource type="Texture2D" uid="uid://bjl2d7mhyq7iv" path="res://asset/enemy/enemy_sm-run-Sheet.png" id="3_bjgfo"]
 [ext_resource type="Texture2D" uid="uid://dip1r3gx7us1v" path="res://asset/player/aimdirection.png" id="3_se72y"]
 [ext_resource type="Texture2D" uid="uid://2twcrs85gps5" path="res://asset/shadow/shadow.png" id="4_73idr"]
+[ext_resource type="Script" path="res://scene/MainGame/Enemy/Hurtbox.gd" id="6_cgu10"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mqvda"]
 atlas = ExtResource("2_b7e0t")
@@ -71,6 +72,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_w74ob"]
 radius = 6.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5eoxs"]
+size = Vector2(18, 8)
+
 [node name="Enemy" type="CharacterBody2D"]
 z_index = -1
 y_sort_enabled = true
@@ -84,7 +88,7 @@ z_index = 8
 y_sort_enabled = true
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_w875g")
-frame_progress = 0.462552
+frame_progress = 0.972672
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 z_index = -1
@@ -109,5 +113,12 @@ modulate = Color(1, 1, 1, 0.364706)
 z_index = -2
 scale = Vector2(1, 0.5)
 texture = ExtResource("4_73idr")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 3
+script = ExtResource("6_cgu10")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_5eoxs")
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

@@ -11,20 +11,21 @@ const INTERACTABLE := preload("res://scene/MainGame/Interactable/interactable.ts
 
 @export var max_speed: float = 65
 @export var speed: float = 65
-@export var taint_time: float = 3
+@export var taint_time_hit: float = 3
 var movement_angle: float = 0
 var attack_angle: float = 0
 var ability := Ability.NONE
 var friction: float = 0.01
 var move_enable = true
 var attack_timer: Timer
+var taint_timer: Timer
+var taint_subtimer: Timer
 var attack_ready: bool = true
 var slow: bool = false
-
+var target_is_placeable: bool = true
 var pick_up: Interactable
 var holding: String = ""
-
-var taint_timer: Timer
+var holdingtex: Texture2D
 
 @export var game_handler: Node
 @onready var aim_marker_pivot = $AimMarkerPivot
@@ -32,46 +33,80 @@ var taint_timer: Timer
 const PROJECTILE_BASIC := preload("res://scene/MainGame/Projectile/Projectile.tscn")
 
 func _ready():
-	taint_timer = Timer.new()
-	taint_timer.connect("timeout", make_taint)
-	add_child(taint_timer)
-	taint_timer.start(taint_time)
 	attack_timer = Timer.new()
 	attack_timer.connect("timeout", attack_refresh)
 	add_child(attack_timer)
-	$Sprite.play("default")
+	taint_timer = Timer.new()
+	taint_timer.connect("timeout", revert)
+	add_child(taint_timer)
+	taint_subtimer = Timer.new()
+	taint_subtimer.connect("timeout", make_taint)
+	add_child(taint_subtimer)
+	$Sprite.play("idle")
 	if !game_handler == null:
 		game_handler.connect("mode_switch", _on_mode_switch)
 
 func _process(delta):
+	if holdingtex != null:
+		$Sprite/Carry.texture = holdingtex
+		$Sprite/Carry.visible = true
+	else:
+		$Sprite/Carry.visible = false
 	game_handler.player_position = global_position
 	aim_marker_pivot.rotation = lerp_angle(aim_marker_pivot.rotation, attack_angle, delta*20)
 	if velocity.length() > 0.1:
-		$Sprite.animation = "run"
+		if taint_timer.time_left > 0:
+			$Sprite.animation = "run_taint"
+		elif holding != "":
+			$Sprite.animation = "run_holding"
+		else:
+			$Sprite.animation = "run"
 	else:
-		$Sprite.animation = "default"
+		if taint_timer.time_left > 0:
+			$Sprite.animation = "idle_taint"
+		elif holding != "":
+			$Sprite.animation = "idle_holding"
+		else:
+			$Sprite.animation = "idle"
 	$Spacebar.global_position = $AimMarkerPivot/AimIndicator.global_position + Vector2(0, 8)
 	if Input.is_action_just_pressed("action"):
-		if holding != "":
+		if holding != "" and target_is_placeable:
+			holdingtex = null
 			var new_interactable = load(holding).instantiate()
 			new_interactable.global_position = Vector2(16*game_handler.get_node("TileMap").local_to_map($AimMarkerPivot/AimIndicator.global_position)) + Vector2(8,8)
-			if !new_interactable is Flower:
+			if !new_interactable is Flower and !new_interactable is TileInteractive:
 				new_interactable.rotation = attack_angle
 			add_sibling(new_interactable)
 			holding = ""
 		if pick_up != null:
-			holding = pick_up.scene_file_path
-			if !pick_up is Flower:
+			holdingtex = pick_up.texture
+			if pick_up is Flower:
+				if !pick_up.cooldown:
+					holding = pick_up.scene_file_path
+					pick_up.cooldown_start()
+					pick_up = null
+			else:
+				holding = pick_up.scene_file_path
 				pick_up.queue_free()
-			move_enable = true
-			pick_up = null
+				move_enable = true
+				pick_up = null
 
 func _physics_process(delta):
+	target_is_placeable = true
+	for body in $AimMarkerPivot/ItemPickup.get_overlapping_bodies():
+		if body is Tile:
+			target_is_placeable = false
+	if target_is_placeable:
+		$AimMarkerPivot/AimIndicator.self_modulate = Color(1, 1, 0)
+	else:
+		$AimMarkerPivot/AimIndicator.self_modulate = Color(0.7, 0.7, 0.7)
 	slow = false
 	for area in $Main.get_overlapping_areas():
 		if area is TaintBlob:
 			slow = true
 			break
+	if taint_timer.time_left > 0:
+		slow = true
 	if slow:
 		speed = max_speed/2
 	else:
@@ -136,7 +171,18 @@ func attack_refresh() -> void:
 	attack_timer.stop()
 	attack_ready = true
 
-func make_taint() -> void:
-	var taint := TAINT.instantiate()
-	taint.position = position
-	add_sibling(taint)
+func make_taint(amount: int = 3) -> void:
+	for i in amount:
+		var taint := TAINT.instantiate()
+		taint.position = position
+		call_deferred("add_sibling", taint)
+
+func _on_main_area_entered(area: Area2D) -> void:
+	if area is Hurtbox and taint_timer.is_stopped() and game_handler.mode == GameHandler.Mode.NIGHT:
+		taint_timer.start(taint_time_hit)
+		taint_subtimer.start(1)
+		make_taint(randi_range(8, 12))
+
+func revert() -> void:
+	taint_timer.stop()
+	taint_subtimer.stop()

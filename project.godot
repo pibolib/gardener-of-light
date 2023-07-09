@@ -15,6 +15,10 @@ run/main_scene="res://scene/MainGame/GameHandler.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://scene/Singleton/Global.tscn"
+
 [display]
 
 window/size/viewport_width=320
@@ -80,3 +84,4 @@ action={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

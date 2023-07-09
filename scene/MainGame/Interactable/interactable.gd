@@ -3,6 +3,7 @@ class_name Interactable
 
 @export var speed: float = 300
 var rotation_timer: Timer
+var texture: Texture2D = preload("res://asset/world/funnyarrow.png")
 
 func _ready():
 	connect("body_entered", _on_area_2d_body_entered)

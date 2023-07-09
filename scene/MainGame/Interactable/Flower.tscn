@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dwypq1al5326i"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Interactable/Flower.gd" id="1_il1eo"]
-[ext_resource type="Texture2D" uid="uid://2sj4brcdw33w" path="res://asset/powerup/plant.png" id="2_n2pqj"]
+[ext_resource type="Texture2D" uid="uid://bwo3g3cfcl5iu" path="res://asset/powerup/flower-Sheet.png" id="2_y4l8a"]
 [ext_resource type="Texture2D" uid="uid://f1qvn5xbhd5j" path="res://asset/lighting/lightcircle.png" id="3_ixyyp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0dpoh"]
@@ -15,10 +15,17 @@ collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_il1eo")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_n2pqj")
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_y4l8a")
 region_enabled = true
-region_rect = Rect2(16, 0, 16, 16)
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Shine" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(-0.5, -1.5)
+texture = ExtResource("2_y4l8a")
+region_enabled = true
+region_rect = Rect2(65, 0, 13, 13)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0dpoh")
@@ -31,6 +38,7 @@ collision_mask = 3
 shape = SubResource("CircleShape2D_heegk")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+rotation = 0.614356
 scale = Vector2(2, 2)
 energy = 0.57
 texture = ExtResource("3_ixyyp")

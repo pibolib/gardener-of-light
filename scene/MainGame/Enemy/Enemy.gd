@@ -3,7 +3,7 @@ class_name Enemy
 
 const TAINT = preload("res://scene/MainGame/Taint/Taint.tscn")
 
-var speed: float = 40
+var speed: float = 30
 @export var target := Vector2(100, 100)
 var move_enable: bool = false
 @export var follow_player: bool = true

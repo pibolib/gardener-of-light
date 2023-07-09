@@ -9,9 +9,12 @@ var velocity := Vector2.ZERO
 
 var grow: bool = false
 @export var game_handler: Node
+var auto: bool = false
 
 
 func _ready():
+	if auto:
+		z = 0
 	velocity = Vector2.from_angle(randf_range(0, TAU)) * randf_range(0, 20)
 	game_handler = get_parent()
 	game_handler.connect("mode_switch", _on_mode_switch)

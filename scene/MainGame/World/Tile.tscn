@@ -35,3 +35,6 @@ occluder = SubResource("OccluderPolygon2D_m34hx")
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
 visible = false
 occluder = SubResource("OccluderPolygon2D_uioyi")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+vertices = PackedVector2Array(-8, -7, -8, -8, 8, -8, 8, 8, -8, 8)
