@@ -6,6 +6,9 @@ var rotation_timer: Timer
 var texture: Texture2D = preload("res://asset/world/funnyarrow.png")
 
 func _ready():
+	texture = AtlasTexture.new()
+	texture.set("atlas", load("res://asset/world/interactables.png"))
+	texture.set("region", Rect2(16,0,16,16))
 	connect("body_entered", _on_area_2d_body_entered)
 	rotation_timer = Timer.new()
 	add_child(rotation_timer)

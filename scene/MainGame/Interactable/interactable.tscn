@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://3ymrobvsurmi"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Interactable/interactable.gd" id="1_5ifd3"]
-[ext_resource type="Texture2D" uid="uid://btlxynagetksw" path="res://asset/world/funnyarrow.png" id="2_iluml"]
+[ext_resource type="Texture2D" uid="uid://dwxkcq0bf3r41" path="res://asset/world/interactables.png" id="2_qctvi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0dpoh"]
 size = Vector2(8, 8)
@@ -12,7 +12,9 @@ collision_mask = 3
 script = ExtResource("1_5ifd3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_iluml")
+texture = ExtResource("2_qctvi")
+region_enabled = true
+region_rect = Rect2(16, 0, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0dpoh")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwypq1al5326i"]
+[gd_scene load_steps=7 format=3 uid="uid://dwypq1al5326i"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Interactable/Flower.gd" id="1_il1eo"]
 [ext_resource type="Texture2D" uid="uid://bwo3g3cfcl5iu" path="res://asset/powerup/flower-Sheet.png" id="2_y4l8a"]
@@ -9,6 +9,9 @@ size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_heegk"]
 radius = 64.0
+
+[sub_resource type="Gradient" id="Gradient_yadpw"]
+colors = PackedColorArray(0.219608, 0, 0.596078, 1, 0, 0, 0, 0)
 
 [node name="Flower" type="Area2D"]
 collision_layer = 3
@@ -42,3 +45,21 @@ rotation = 0.614356
 scale = Vector2(2, 2)
 energy = 0.57
 texture = ExtResource("3_ixyyp")
+
+[node name="Absorb" type="CPUParticles2D" parent="."]
+position = Vector2(0, -1)
+emitting = false
+amount = 20
+lifetime = 0.7
+draw_order = 1
+emission_shape = 2
+emission_sphere_radius = 20.37
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+orbit_velocity_min = 0.1
+orbit_velocity_max = 0.1
+radial_accel_min = -26.57
+radial_accel_max = -23.78
+color = Color(0.227451, 0, 0.384314, 1)
+color_ramp = SubResource("Gradient_yadpw")

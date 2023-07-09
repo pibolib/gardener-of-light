@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ewp05anwnfnl"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Interactable/TileInteractive.gd" id="1_whq3m"]
-[ext_resource type="Texture2D" uid="uid://fi8n2rep8gho" path="res://asset/tile/tileset.png" id="2_faylw"]
+[ext_resource type="Texture2D" uid="uid://dwxkcq0bf3r41" path="res://asset/world/interactables.png" id="2_3fn6p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mci4o"]
 size = Vector2(8, 8)
@@ -21,9 +21,9 @@ script = ExtResource("1_whq3m")
 shape = SubResource("RectangleShape2D_mci4o")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_faylw")
+texture = ExtResource("2_3fn6p")
 region_enabled = true
-region_rect = Rect2(48, 0, 16, 16)
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite"]
 visible = false
