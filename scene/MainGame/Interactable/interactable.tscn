@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://3ymrobvsurmi"]
+[gd_scene load_steps=5 format=3 uid="uid://3ymrobvsurmi"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Interactable/interactable.gd" id="1_5ifd3"]
 [ext_resource type="Texture2D" uid="uid://dwxkcq0bf3r41" path="res://asset/world/interactables.png" id="2_qctvi"]
+[ext_resource type="AudioStream" uid="uid://xiyga7rmq6se" path="res://asset/sfx/PushArrow_1.wav" id="3_dclph"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0dpoh"]
 size = Vector2(8, 8)
 
 [node name="Interactable" type="Area2D"]
-collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_5ifd3")
 
@@ -18,3 +18,9 @@ region_rect = Rect2(16, 0, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0dpoh")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_dclph")
+volume_db = -6.71
+max_polyphony = 8
+bus = &"SFX"

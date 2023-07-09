@@ -20,3 +20,6 @@ texture = ExtResource("1_q0cqq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_v5big")
 disabled = true
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+volume_db = -8.723

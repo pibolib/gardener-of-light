@@ -10,11 +10,14 @@ var velocity := Vector2.ZERO
 var grow: bool = false
 @export var game_handler: Node
 var auto: bool = false
+var audio_clips := [preload("res://asset/sfx/Droplet_Land_1.wav"),preload("res://asset/sfx/Droplet_Land_2.wav"),preload("res://asset/sfx/Droplet_Land_3.wav"),preload("res://asset/sfx/Droplet_Land_4.wav")]
 
 
 func _ready():
+	$AudioPlayer.stream = audio_clips.pick_random()
 	if auto:
 		z = 0
+		zsp = 0
 	velocity = Vector2.from_angle(randf_range(0, TAU)) * randf_range(0, 20)
 	game_handler = get_parent()
 	game_handler.connect("mode_switch", _on_mode_switch)
@@ -33,6 +36,9 @@ func _process(delta):
 			do_3d_anim = false
 			g = 0
 			z = 0
+			if !auto:
+				$AudioPlayer.play()
+			$Sprite.scale += Vector2(0.3, 0.3)
 			$CollisionShape2D.disabled = false
 			game_handler.taint_count += 1
 	else:

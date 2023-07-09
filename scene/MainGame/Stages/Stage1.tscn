@@ -1,0 +1,269 @@
+[gd_scene load_steps=32 format=3 uid="uid://byw21ue150dpw"]
+
+[ext_resource type="Script" path="res://scene/MainGame/GameHandler.gd" id="1_brf7x"]
+[ext_resource type="Texture2D" uid="uid://fi8n2rep8gho" path="res://asset/tile/tileset.png" id="2_jco81"]
+[ext_resource type="Texture2D" uid="uid://b0ruxg048ayee" path="res://asset/tile/tileset_new.png" id="3_omeu3"]
+[ext_resource type="PackedScene" uid="uid://drw6pkyel0u2l" path="res://scene/MainGame/Player/Player.tscn" id="4_njo4b"]
+[ext_resource type="FontFile" uid="uid://yoxl3j5wnxsn" path="res://asset/fonts/04B_03_.TTF" id="5_8r6rb"]
+[ext_resource type="Texture2D" uid="uid://do2esbwk8aoni" path="res://asset/ui/daynightmask.png" id="6_lqtah"]
+[ext_resource type="Texture2D" uid="uid://ckjvyhidggfbd" path="res://asset/ui/daynight.png" id="7_61o85"]
+[ext_resource type="Texture2D" uid="uid://chwtfhtxy42g1" path="res://asset/ui/9slice.png" id="8_jo51y"]
+[ext_resource type="PackedScene" uid="uid://dwypq1al5326i" path="res://scene/MainGame/Interactable/Flower.tscn" id="8_w3jib"]
+[ext_resource type="Texture2D" uid="uid://dqbdvwlpxk7yk" path="res://asset/ui/goopbar.png" id="9_0lg0u"]
+[ext_resource type="Texture2D" uid="uid://04u6va5t334d" path="res://asset/ui/buttons.png" id="10_88qyh"]
+[ext_resource type="FontFile" uid="uid://dwdgpokuxqema" path="res://asset/fonts/x12y16pxMaruMonica.ttf" id="10_503g0"]
+[ext_resource type="Script" path="res://scene/MainGame/Stages/Label2.gd" id="10_d0wcx"]
+[ext_resource type="AudioStream" uid="uid://lfphx4ewla2g" path="res://asset/sfx/Taint_Loop_1.wav" id="13_58nok"]
+[ext_resource type="AudioStream" uid="uid://cuudg4a7vsbf7" path="res://asset/sfx/Taint_Loop_2.wav" id="14_8l1l8"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_16tad"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_q8t0t"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1mgl6"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cxm6s"]
+texture = ExtResource("2_jco81")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_16tad")
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_q8t0t")
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_1mgl6")
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xu218"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ijnl5"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ys6hq"]
+texture = ExtResource("3_omeu3")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_xu218")
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ijnl5")
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ijnl5")
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ijnl5")
+0:2/0 = 0
+0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:2/0/physics_layer_0/angular_velocity = 0.0
+1:2/0 = 0
+1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:2/0/physics_layer_0/angular_velocity = 0.0
+0:3/0 = 0
+0:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:3/0/physics_layer_0/angular_velocity = 0.0
+1:3/0 = 0
+1:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:3/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_acypx"]
+uv_clipping = true
+physics_layer_0/collision_layer = 5
+physics_layer_0/collision_mask = 5
+navigation_layer_0/layers = 1
+sources/0 = SubResource("TileSetAtlasSource_cxm6s")
+sources/2 = SubResource("TileSetAtlasSource_ys6hq")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4vft"]
+atlas = ExtResource("10_88qyh")
+region = Rect2(9, 12, 30, 26)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_777ce"]
+texture = SubResource("AtlasTexture_j4vft")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbrgh"]
+atlas = ExtResource("10_88qyh")
+region = Rect2(57, 12, 30, 26)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tu0x0"]
+texture = SubResource("AtlasTexture_cbrgh")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2c6sa"]
+atlas = ExtResource("10_88qyh")
+region = Rect2(105, 12, 30, 26)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hutcw"]
+texture = SubResource("AtlasTexture_2c6sa")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="Environment" id="Environment_y4xgg"]
+background_energy_multiplier = 0.0
+tonemap_mode = 2
+tonemap_exposure = 1.44
+tonemap_white = 1.22
+glow_enabled = true
+glow_hdr_threshold = 0.42
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1hxi5"]
+blend_mode = 2
+light_mode = 2
+
+[node name="GameHandler" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_brf7x")
+next_stage = "res://scene/MainGame/Stages/Stage2.tscn"
+taint_initial = 20
+
+[node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_acypx")
+format = 2
+layer_0/name = "BG"
+layer_0/z_index = -10
+layer_0/tile_data = PackedInt32Array(524293, 65538, 1, 589829, 65538, 0, 524289, 65538, 1, 589825, 65538, 0, 589826, 2, 0, 589827, 65538, 0, 589828, 2, 0, 589830, 2, 0, 589831, 65538, 0, 589832, 2, 0, 524295, 65538, 1, 655361, 65538, 1, 720897, 65538, 0, 720898, 2, 0, 720899, 65538, 0, 720900, 2, 0, 720901, 65538, 0, 720902, 2, 0, 720903, 65538, 0, 720904, 2, 0, 851969, 65538, 0, 851970, 2, 0, 851971, 65538, 0, 851972, 2, 0, 851973, 65538, 0, 851974, 2, 0, 851975, 65538, 0, 851976, 2, 0, 786433, 65538, 1, 655367, 65538, 1, 786439, 65538, 1, 524290, 2, 1, 655362, 2, 1, 786434, 2, 1, 524291, 65538, 1, 655363, 65538, 1, 786435, 65538, 1, 524292, 2, 1, 655364, 2, 1, 786436, 2, 1, 655365, 65538, 1, 786437, 65538, 1, 524294, 2, 1, 655366, 2, 1, 786438, 2, 1, 524296, 2, 1, 655368, 2, 1, 786440, 2, 1, 524288, 2, 1, 589824, 2, 0, 655360, 2, 1, 720896, 2, 0, 786432, 2, 1, 851968, 2, 0, 917504, 2, 1, 917505, 65538, 1, 917506, 2, 1, 917507, 65538, 1, 917508, 2, 1, 917509, 65538, 1, 917510, 2, 1, 917511, 65538, 1, 917512, 2, 1, 262144, 2, 1, 262145, 65538, 1, 327680, 2, 0, 393216, 2, 1, 327681, 65538, 0, 393217, 65538, 1, 458752, 2, 0, 458753, 65538, 0, 262146, 2, 1, 262147, 65538, 1, 327682, 2, 0, 393218, 2, 1, 327683, 65538, 0, 393219, 65538, 1, 458754, 2, 0, 458755, 65538, 0, 262148, 2, 1, 262149, 65538, 1, 327684, 2, 0, 393220, 2, 1, 327685, 65538, 0, 393221, 65538, 1, 458756, 2, 0, 458757, 65538, 0, 262150, 2, 1, 262151, 65538, 1, 327686, 2, 0, 393222, 2, 1, 327687, 65538, 0, 393223, 65538, 1, 458758, 2, 0, 458759, 65538, 0, 262152, 2, 1, 262153, 65538, 1, 327688, 2, 0, 393224, 2, 1, 327689, 65538, 0, 393225, 65538, 1, 458760, 2, 0, 458761, 65538, 0, 524297, 65538, 1, 589833, 65538, 0, 655369, 65538, 1, 720905, 65538, 0, 786441, 65538, 1, 851977, 65538, 0, 917513, 65538, 1, 262154, 2, 1, 262155, 65538, 1, 327690, 2, 0, 393226, 2, 1, 327691, 65538, 0, 393227, 65538, 1, 458762, 2, 0, 524298, 2, 1, 458763, 65538, 0, 524299, 65538, 1, 589834, 2, 0, 655370, 2, 1, 589835, 65538, 0, 655371, 65538, 1, 720906, 2, 0, 786442, 2, 1, 720907, 65538, 0, 786443, 65538, 1, 851978, 2, 0, 917514, 2, 1, 851979, 65538, 0, 917515, 65538, 1, 262156, 2, 1, 262157, 65538, 1, 327692, 2, 0, 393228, 2, 1, 327693, 65538, 0, 393229, 65538, 1, 458764, 2, 0, 524300, 2, 1, 458765, 65538, 0, 524301, 65538, 1, 589836, 2, 0, 655372, 2, 1, 589837, 65538, 0, 655373, 65538, 1, 720908, 2, 0, 786444, 2, 1, 720909, 65538, 0, 786445, 65538, 1, 851980, 2, 0, 917516, 2, 1, 851981, 65538, 0, 917517, 65538, 1)
+layer_1/name = "FG"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = true
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 524288, 65536, 0, 589824, 65536, 0, 655360, 65536, 0, 720896, 65536, 0, 786432, 65536, 0, 851968, 65536, 0, 262144, 65536, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 65536, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 327693, 65536, 0, 393229, 65536, 0, 458765, 65536, 0, 524301, 65536, 0, 589837, 65536, 0, 655373, 65536, 0, 720909, 65536, 0, 786445, 65536, 0, 851981, 65536, 0, 327680, 65536, 0, 393216, 65536, 0, 458752, 65536, 0)
+
+[node name="Player" parent="." node_paths=PackedStringArray("game_handler") instance=ExtResource("4_njo4b")]
+z_index = 0
+position = Vector2(24, 216)
+game_handler = NodePath("..")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TimeTop" type="Sprite2D" parent="UI"]
+position = Vector2(296, 24)
+texture = ExtResource("6_lqtah")
+
+[node name="TimeBottom" type="Sprite2D" parent="UI/TimeTop"]
+z_index = -1
+texture = ExtResource("7_61o85")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI"]
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 204.0
+offset_bottom = 20.0
+texture = ExtResource("8_jo51y")
+
+[node name="Goopbar" type="Sprite2D" parent="UI"]
+position = Vector2(115, 17)
+texture = ExtResource("9_0lg0u")
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 10.0
+offset_top = 12.0
+offset_right = 50.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("5_8r6rb")
+theme_override_font_sizes/font_size = 8
+text = "X%"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="UI"]
+anchors_preset = -1
+anchor_top = -0.025
+anchor_right = 0.875
+anchor_bottom = -0.025
+offset_top = 212.0
+offset_right = 40.0
+offset_bottom = 240.0
+theme_override_fonts/font = ExtResource("5_8r6rb")
+theme_override_font_sizes/font_size = 8
+text = "Press SPACE to pick up a flower when it's glowing
+Press SPACE again to place the new flower down"
+horizontal_alignment = 1
+vertical_alignment = 2
+script = ExtResource("10_d0wcx")
+metadata/_edit_use_anchors_ = true
+
+[node name="Retry" type="Button" parent="UI"]
+visible = false
+offset_left = 224.0
+offset_top = 192.0
+offset_right = 296.0
+offset_bottom = 218.0
+theme_override_fonts/font = ExtResource("10_503g0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_777ce")
+theme_override_styles/hover = SubResource("StyleBoxTexture_tu0x0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hutcw")
+text = "Retry Stage"
+
+[node name="Next" type="Button" parent="UI"]
+visible = false
+offset_left = 224.0
+offset_top = 192.0
+offset_right = 296.0
+offset_bottom = 218.0
+theme_override_fonts/font = ExtResource("10_503g0")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_777ce")
+theme_override_styles/hover = SubResource("StyleBoxTexture_tu0x0")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hutcw")
+text = "Next Stage"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y4xgg")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_1hxi5")
+color = Color(0, 0, 0, 1)
+
+[node name="Flower" parent="." instance=ExtResource("8_w3jib")]
+position = Vector2(72, 184)
+starting = true
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="TL" type="Marker2D" parent="Markers"]
+position = Vector2(0, 64)
+
+[node name="BR" type="Marker2D" parent="Markers"]
+position = Vector2(224, 240)
+
+[node name="Loop1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_58nok")
+
+[node name="Loop2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_8l1l8")
+
+[connection signal="pressed" from="UI/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="UI/Next" to="." method="_on_next_pressed"]

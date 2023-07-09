@@ -1,10 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://bvtqyrvqllt6d"]
+[gd_scene load_steps=28 format=3 uid="uid://bvtqyrvqllt6d"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Enemy/Enemy.gd" id="1_yxob3"]
 [ext_resource type="Texture2D" uid="uid://cemx1dlcm21pv" path="res://asset/enemy/enemy_sm-Sheet.png" id="2_24dob"]
 [ext_resource type="Texture2D" uid="uid://dip1r3gx7us1v" path="res://asset/player/aimdirection.png" id="3_se72y"]
 [ext_resource type="Texture2D" uid="uid://2twcrs85gps5" path="res://asset/shadow/shadow.png" id="4_73idr"]
+[ext_resource type="AudioStream" uid="uid://bb5elpt82qqe2" path="res://asset/sfx/Enemy_Footstep_1.wav" id="6_685aw"]
 [ext_resource type="Script" path="res://scene/MainGame/Enemy/Hurtbox.gd" id="6_cgu10"]
+[ext_resource type="AudioStream" uid="uid://bk1cnhlcju738" path="res://asset/sfx/Enemy_Footstep_3.wav" id="7_bc2mw"]
+[ext_resource type="AudioStream" uid="uid://51foibilc17v" path="res://asset/sfx/Enemy_Footstep_2.wav" id="8_svgry"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5nfdw"]
 atlas = ExtResource("2_24dob")
@@ -37,6 +40,26 @@ region = Rect2(64, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rgqr1"]
 atlas = ExtResource("2_24dob")
 region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qmmm"]
+atlas = ExtResource("2_24dob")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5o8q"]
+atlas = ExtResource("2_24dob")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lnl8"]
+atlas = ExtResource("2_24dob")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hi7t8"]
+atlas = ExtResource("2_24dob")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rc8ce"]
+atlas = ExtResource("2_24dob")
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w875g"]
 animations = [{
@@ -73,18 +96,77 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qmmm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5o8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lnl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hi7t8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rc8ce")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w74ob"]
 radius = 6.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5eoxs"]
-size = Vector2(18, 8)
+size = Vector2(18, 10)
+
+[sub_resource type="Animation" id="Animation_eo54v"]
+resource_name = "Idle"
+
+[sub_resource type="Animation" id="Animation_7ovw2"]
+resource_name = "Walk"
+length = 1.5
+loop_mode = 1
+step = 0.5
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_685aw")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_bc2mw")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_svgry")
+}],
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ceefh"]
+_data = {
+"Idle": SubResource("Animation_eo54v"),
+"Walk": SubResource("Animation_7ovw2")
+}
 
 [node name="Enemy" type="CharacterBody2D"]
 z_index = -1
 y_sort_enabled = true
-collision_layer = 9
+collision_layer = 26
+collision_mask = 257
 motion_mode = 1
 safe_margin = 1.0
 script = ExtResource("1_yxob3")
@@ -94,8 +176,7 @@ z_index = 8
 y_sort_enabled = true
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_w875g")
-animation = &"run"
-frame_progress = 0.778646
+animation = &"spawn"
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 z_index = -1
@@ -128,4 +209,18 @@ script = ExtResource("6_cgu10")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_5eoxs")
 
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+volume_db = -16.041
+bus = &"SFX"
+
+[node name="AudioPlayer2" type="AudioStreamPlayer2D" parent="."]
+volume_db = -9.331
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ceefh")
+}
+
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

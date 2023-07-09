@@ -20,6 +20,8 @@ func _on_area_2d_body_entered(body):
 		body.position = position
 		body.move_enable = false
 		body.velocity = Vector2.from_angle(rotation).normalized() * speed 
+		$AudioStreamPlayer2D.pitch_scale = randf_range(0.95,1.05)
+		$AudioStreamPlayer2D.play()
 		var timer := get_tree().create_timer(0.25)
 		await timer.timeout
 		body.move_enable = true

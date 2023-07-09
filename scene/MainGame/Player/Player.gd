@@ -8,6 +8,7 @@ enum Ability {
 
 const TAINT = preload("res://scene/MainGame/Taint/Taint.tscn")
 const INTERACTABLE := preload("res://scene/MainGame/Interactable/interactable.tscn")
+var ENEMY_ATTACK_FX := [preload("res://asset/sfx/Enemy_Attack_1.wav"),preload("res://asset/sfx/Enemy_Attack_2.wav"),preload("res://asset/sfx/Enemy_Attack_3.wav")]
 
 @export var max_speed: float = 65
 @export var speed: float = 65
@@ -33,6 +34,7 @@ var holdingtex: Texture2D
 const PROJECTILE_BASIC := preload("res://scene/MainGame/Projectile/Projectile.tscn")
 
 func _ready():
+	$AudioPlayer2.stream = ENEMY_ATTACK_FX[randi_range(0, 2)]
 	attack_timer = Timer.new()
 	attack_timer.connect("timeout", attack_refresh)
 	add_child(attack_timer)
@@ -53,8 +55,12 @@ func _process(delta):
 	else:
 		$Sprite/Carry.visible = false
 	game_handler.player_position = global_position
-	aim_marker_pivot.rotation = lerp_angle(aim_marker_pivot.rotation, attack_angle, delta*20)
+	aim_marker_pivot.rotation = lerp_angle(aim_marker_pivot.rotation, attack_angle, delta*60)
 	if velocity.length() > 0.1:
+		if slow:
+			$AnimationPlayer.current_animation = "TaintWalk"
+		else:
+			$AnimationPlayer.current_animation = "Walk"
 		if taint_timer.time_left > 0:
 			$Sprite.animation = "run_taint"
 		elif holding != "":
@@ -62,6 +68,7 @@ func _process(delta):
 		else:
 			$Sprite.animation = "run"
 	else:
+		$AnimationPlayer.current_animation = "Idle"
 		if taint_timer.time_left > 0:
 			$Sprite.animation = "idle_taint"
 		elif holding != "":
@@ -78,7 +85,7 @@ func _process(delta):
 				new_interactable.rotation = attack_angle
 			add_sibling(new_interactable)
 			holding = ""
-		if pick_up != null:
+		if pick_up != null and holding == "":
 			if pick_up is Flower:
 				if !pick_up.cooldown:
 					holdingtex = pick_up.texture
@@ -96,6 +103,9 @@ func _physics_process(delta):
 	target_is_placeable = true
 	for body in $AimMarkerPivot/ItemPickup.get_overlapping_bodies():
 		if body is Tile:
+			target_is_placeable = false
+	for body in $AimMarkerPivot/ItemPickup.get_overlapping_areas():
+		if body is Interactable:
 			target_is_placeable = false
 	if target_is_placeable:
 		$AimMarkerPivot/AimIndicator.self_modulate = Color(1, 1, 0)
@@ -183,6 +193,8 @@ func _on_main_area_entered(area: Area2D) -> void:
 		taint_timer.start(taint_time_hit)
 		taint_subtimer.start(1)
 		make_taint(randi_range(8, 12))
+		$AudioPlayer2.playing = true
+		$AudioPlayer2.pitch_scale = randf_range(0.95, 1.05)
 
 func revert() -> void:
 	taint_timer.stop()

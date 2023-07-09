@@ -14,7 +14,7 @@ polygon = PackedVector2Array(-8, 8, -8, -8, 8, -8, 8, 8)
 
 [node name="Tile" type="StaticBody2D"]
 y_sort_enabled = true
-collision_layer = 5
+collision_layer = 261
 collision_mask = 5
 script = ExtResource("1_f7aqb")
 

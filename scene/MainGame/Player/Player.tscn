@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://drw6pkyel0u2l"]
+[gd_scene load_steps=47 format=3 uid="uid://drw6pkyel0u2l"]
 
 [ext_resource type="Script" path="res://scene/MainGame/Player/Player.gd" id="1_mpypc"]
 [ext_resource type="Texture2D" uid="uid://ctxneuttrdl5" path="res://asset/player/boy-Sheet.png" id="2_wqast"]
@@ -6,6 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://f1qvn5xbhd5j" path="res://asset/lighting/lightcircle.png" id="4_gen42"]
 [ext_resource type="Texture2D" uid="uid://diom3qyvry5fv" path="res://asset/ui/spacebar.png" id="5_jfnca"]
 [ext_resource type="Texture2D" uid="uid://2twcrs85gps5" path="res://asset/shadow/shadow.png" id="6_csn0i"]
+[ext_resource type="AudioStream" uid="uid://0n6shvfun6ny" path="res://asset/sfx/Player_Footstep_1.wav" id="7_dpkyl"]
+[ext_resource type="AudioStream" uid="uid://c0anjc4lxw52v" path="res://asset/sfx/Player_Footstep_4.wav" id="8_y0yrv"]
+[ext_resource type="AudioStream" uid="uid://d4hnuc6bdpxn2" path="res://asset/sfx/Player_Footstep_2.wav" id="9_uml7i"]
+[ext_resource type="AudioStream" uid="uid://dxmil1melplkr" path="res://asset/sfx/Player_Taintstep_1.wav" id="10_jnfn6"]
+[ext_resource type="AudioStream" uid="uid://dvsxblya6ubta" path="res://asset/sfx/Player_Taintstep_4.wav" id="11_7tx8a"]
+[ext_resource type="AudioStream" uid="uid://b3jbp057k7mpf" path="res://asset/sfx/Player_Taintstep_2.wav" id="12_7277o"]
+[ext_resource type="AudioStream" uid="uid://c1pyortg85ga0" path="res://asset/sfx/Player_Taintstep_3.wav" id="13_tigxe"]
+[ext_resource type="AudioStream" uid="uid://1uoxp8ynmimc" path="res://asset/sfx/Enemy_Attack_1.wav" id="14_lv0e8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ogfy"]
 atlas = ExtResource("2_wqast")
@@ -205,7 +213,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run_taint",
-"speed": 8.0
+"speed": 4.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w74ob"]
@@ -217,9 +225,85 @@ radius = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ls3rk"]
 radius = 7.0
 
+[sub_resource type="Animation" id="Animation_niomq"]
+resource_name = "Walk"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.01,
+"stream": ExtResource("7_dpkyl")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_y0yrv")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_dpkyl")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("9_uml7i")
+}],
+"times": PackedFloat32Array(0, 0.5, 1, 1.5)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="Animation" id="Animation_jqbua"]
+resource_name = "TaintWalk"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_jnfn6")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("11_7tx8a")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("12_7277o")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("13_tigxe")
+}],
+"times": PackedFloat32Array(0, 0.5, 1, 1.5)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="Animation" id="Animation_t4hg8"]
+resource_name = "Idle"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c0jdc"]
+_data = {
+"Idle": SubResource("Animation_t4hg8"),
+"TaintWalk": SubResource("Animation_jqbua"),
+"Walk": SubResource("Animation_niomq")
+}
+
 [node name="Player" type="CharacterBody2D"]
 z_index = -1
 y_sort_enabled = true
+collision_mask = 256
 motion_mode = 1
 script = ExtResource("1_mpypc")
 
@@ -278,11 +362,28 @@ shape = SubResource("CircleShape2D_ls3rk")
 
 [node name="Spacebar" type="Sprite2D" parent="."]
 visible = false
+z_index = 20
 position = Vector2(16, 7)
 texture = ExtResource("5_jfnca")
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_c0jdc")
+}
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+volume_db = -4.697
+max_polyphony = 8
+bus = &"SFX"
+
+[node name="AudioPlayer2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_lv0e8")
+volume_db = -2.013
+max_polyphony = 8
+bus = &"SFX"
 
 [connection signal="area_entered" from="AimMarkerPivot/ItemPickup" to="." method="_on_item_pickup_area_entered"]
 [connection signal="area_exited" from="AimMarkerPivot/ItemPickup" to="." method="_on_item_pickup_area_exited"]

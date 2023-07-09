@@ -1,9 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://c474w4jfcwqyi"]
+[gd_scene load_steps=4 format=3 uid="uid://c474w4jfcwqyi"]
 
 [ext_resource type="Script" path="res://scene/Singleton/Global.gd" id="1_madxg"]
+[ext_resource type="AudioStream" uid="uid://bsxhjwu1dp1nx" path="res://asset/sfx/UI_Select_1.wav" id="2_ra6v3"]
+[ext_resource type="AudioStream" uid="uid://ck56t5p00ursv" path="res://asset/sfx/UI_Submit.wav" id="3_bggeh"]
 
 [node name="Global" type="Node2D"]
 script = ExtResource("1_madxg")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 bus = &"BGM"
+
+[node name="Retry" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ra6v3")
+bus = &"SFX"
+
+[node name="Next" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_bggeh")
+bus = &"SFX"
