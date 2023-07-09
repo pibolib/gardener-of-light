@@ -79,13 +79,14 @@ func _process(delta):
 			add_sibling(new_interactable)
 			holding = ""
 		if pick_up != null:
-			holdingtex = pick_up.texture
 			if pick_up is Flower:
 				if !pick_up.cooldown:
+					holdingtex = pick_up.texture
 					holding = pick_up.scene_file_path
 					pick_up.cooldown_start()
 					pick_up = null
 			else:
+				holdingtex = pick_up.texture
 				holding = pick_up.scene_file_path
 				pick_up.queue_free()
 				move_enable = true
